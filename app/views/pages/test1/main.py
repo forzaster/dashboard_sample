@@ -36,4 +36,4 @@ class Test1(PageBase):
 
     def get_tab_title(self, idx):
         return _TAB_INFO[idx]['title']
-    
+
