@@ -34,6 +34,7 @@ def create():
     df = model.get(title)
     columns = df.columns.copy()
     df['rank'] = df.index
+    df['rank'] = df['rank'] + 1
     df = df[['rank', *columns]]
 
     fig = px.bar(df[:100], x='user', y='score')
