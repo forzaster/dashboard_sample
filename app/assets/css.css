@@ -13,12 +13,15 @@ body {
 .sidebar_item {
     padding: 0.6rem !important;
     text-align: left !important;
-    font-size: 1rem !important;
+    font-size: 0.8rem !important;
     border: none !important;
     background-color: #f8f9fa !important;
     border-left: 3px solid #f8f9fa !important;
     border-top: 1px solid #d6d6d6 !important;
     border-bottom: 1px solid #d6d6d6 !important;
+    display: flex !important;
+    align-items: left;
+    justify-content: left;
 }
 .sidebar_item:hover {
     border: 1px;
@@ -28,9 +31,9 @@ body {
 .sidebar_item_selected {
     color:rgb(0, 88, 117) !important;
     font-weight: bold !important;
-    border-left: 3px solid lightgrey !important;
+    border-left: 3px solid #008cff !important;
     border-bottom: 1px solid #027ef9 !important;
-    background-color: #f8f9fabe !important;
+    background-color: white !important;
 }
 
 .tab_item {

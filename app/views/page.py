@@ -3,8 +3,6 @@ from dash import html, dcc
 
 from models import asset_manager
 
-_page_margin = 2
-
 
 class PageBase:
     def __init__(self):
@@ -15,7 +13,11 @@ class PageBase:
         pass
 
     @abstractmethod
-    def description(self):
+    def deadline(self):
+        pass
+
+    @abstractmethod
+    def sub_title(self):
         pass
 
     @abstractmethod
@@ -23,11 +25,11 @@ class PageBase:
         pass
 
     @abstractmethod
-    def get_tab_view(self, n):
+    def get_tab_title(self, n):
         pass
 
     @abstractmethod
-    def get_tab_title(self, n):
+    def get_tab_view(self, n):
         pass
 
     @abstractmethod
@@ -50,7 +52,7 @@ class PageBase:
             'padding': '1rem'
         } if bg_image else {}
         return html.Div([html.H1(title),
-                         html.Div(self.description(), style={"margin": "1rem"})],
+                         html.Div(self.sub_title(), style={"margin": "1rem"})],
                          style=title_style)
 
     def _create_tab_item(self, label, value):
@@ -76,11 +78,12 @@ class PageBase:
 
 
 def get_page_root_view(margin_left, page):
+    page_margin = 2
     style = {
-        "margin-left": f"{margin_left+_page_margin}rem",
-        "padding-left": f"{_page_margin}rem",
-        "margin-right": f"{_page_margin}rem",
-        "padding-top": f"{_page_margin}rem"
+        "margin-left": f"{margin_left+page_margin}rem",
+        "padding-left": f"{page_margin}rem",
+        "margin-right": f"{page_margin}rem",
+        "padding-top": f"{page_margin}rem"
     }
     page_view = page.get_view()
     return html.Div([page_view], id='contents_container', style=style)
