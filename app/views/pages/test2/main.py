@@ -1,6 +1,6 @@
 from dash import html
 from ...page import PageBase
-from ...utils import decorator
+from ...utils.decorator import rounded
 
 
 _TAB_INFO = [
@@ -29,8 +29,9 @@ class Test2(PageBase):
     def get_tab_num(self):
         return 3
 
+    @rounded
     def get_tab_view(self, idx):
-        return decorator.rounded(html.Div(f'Under construction {idx}'))
+        return html.Div(f'Under construction {idx}')
 
     def get_tab_title(self, idx):
         return _TAB_INFO[idx]['title']
