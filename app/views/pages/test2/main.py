@@ -17,7 +17,10 @@ class Test2(PageBase):
     def title(self):
         return 'Test2'
 
-    def description(self):
+    def deadline(self):
+        return '2021/12/1'
+
+    def sub_title(self):
         return 'sub test2'
 
     def background_image(self):
@@ -27,8 +30,7 @@ class Test2(PageBase):
         return 3
 
     def get_tab_view(self, idx):
-        tab = html.Div(f'Under construction {idx}')
-        return decorator.rounded(tab)
+        return decorator.rounded(html.Div(f'Under construction {idx}'))
 
     def get_tab_title(self, idx):
         return _TAB_INFO[idx]['title']
