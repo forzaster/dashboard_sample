@@ -29,6 +29,12 @@ _style_data = {
     'textAlign': 'left'
 }
 
+
+def _create_submission_view(title):
+    button_id = f'{TITLE}_submit_button'
+    return html.Div([html.H3('Submission'),
+                     html.Button('Submit', id=button_id, className='common_button')])
+
 def create(model: LeaderboardModel):
     title = model.get_title()
     df = model.get()
@@ -38,7 +44,7 @@ def create(model: LeaderboardModel):
     df = df[['rank', *columns]]
 
     fig = px.bar(df[:100], x='user', y='score')
-    fig.update_layout(title='Ranking')
+    fig.update_layout(title='High Ranking Score View')
     graph = dcc.Graph(figure=fig)
     table = dash_table.DataTable(id=f'{title}_leaderboard',
                                  columns=[{'name': c, 'id': c} for c in df.columns],
@@ -51,5 +57,7 @@ def create(model: LeaderboardModel):
                                     {'if': {'column_id': 'user'}, 'width': '70%'},
                                     {'if': {'column_id': 'score'}, 'width': '5rem'},
                                     {'if': {'column_id': 'Date'}, 'width': '5rem'}])
-    return html.Div([html.H3(f'Current Ranking Top : {df.user.iloc[0]}'),
-                     graph, html.Div([table], style=_style)])
+    return html.Div([_create_submission_view(title),
+                     html.H3(f'Ranking'),
+                     html.Div([table], style=_style),
+                     graph])

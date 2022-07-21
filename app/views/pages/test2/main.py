@@ -1,8 +1,7 @@
 from dash import html
 from ...page import PageBase
-from ...utils.decorator import rounded
 
-
+_TITLE = 'Test2'
 _TAB_INFO = [
     {'title': 'Description', 'create': None},
     {'title': 'Data', 'create': None},
@@ -15,7 +14,7 @@ class Test2(PageBase):
         super().__init__()
 
     def title(self):
-        return 'Test2'
+        return _TITLE
 
     def deadline(self):
         return '2021/12/1'
@@ -29,8 +28,7 @@ class Test2(PageBase):
     def get_tab_num(self):
         return 3
 
-    @rounded
-    def get_tab_view(self, idx):
+    def get_tab(self, idx):
         return html.Div(f'Under construction {idx}')
 
     def get_tab_title(self, idx):
