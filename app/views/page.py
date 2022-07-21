@@ -2,7 +2,7 @@ from abc import abstractmethod
 from dash import html, dcc
 
 from models import asset_manager
-
+from .utils.decorator import rounded
 
 class PageBase:
     def __init__(self):
@@ -29,12 +29,17 @@ class PageBase:
         pass
 
     @abstractmethod
-    def get_tab_view(self, n):
+    def get_tab(self, n):
         pass
 
     @abstractmethod
     def get_tab_num(self):
         pass
+
+    @rounded
+    def get_tab_view(self, n):
+        idx = int(n)
+        return self.get_tab(idx)
 
     def tab_id(self):
         return f'tabs_{self.title()}'

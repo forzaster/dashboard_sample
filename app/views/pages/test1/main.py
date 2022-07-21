@@ -2,16 +2,18 @@ from dataclasses import dataclass
 
 from models.leaderboard import LeaderboardModel
 from ...page import PageBase
-from ...utils.decorator import rounded
 from .. import tab_leaderboard
 from . import tab_data
 from . import tab_description
 
 
+_TITLE = 'Test1'
+
+
 class Test1(PageBase):
     def __init__(self):
         super().__init__()
-        self._title = 'Test1'
+        self._title = _TITLE
         self._tab_info = [
             {'title': tab_description.TITLE, 'create': tab_description.get_view, 'args': {}},
             {'title': tab_data.TITLE, 'create': tab_data.create, 'args': {}},
@@ -33,8 +35,7 @@ class Test1(PageBase):
     def get_tab_num(self):
         return len(self._tab_info)
 
-    @rounded
-    def get_tab_view(self, idx):
+    def get_tab(self, idx):
         idx = int(idx)
         args = self._tab_info[idx]['args']
         return self._tab_info[idx]['create'](**args)

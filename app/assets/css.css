@@ -55,17 +55,17 @@ body {
     border-bottom: 3px solid #008cff !important;
 }
 
-.download_button {
+.common_button {
     margin: 0.5rem;
     padding: 0.5rem;
     border: 1px solid lightgrey !important;
     background-color: white;
 }
-.download_button:hover {
+.common_button:hover {
     transition: all .3s;
     color: white;
     background-color: lightgray;
 }
-.download_button:active {
+.common_button:active {
     background-color: #027ef9;
 }
