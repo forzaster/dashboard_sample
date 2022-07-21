@@ -1,7 +1,7 @@
 from dash import dcc, html, dash_table
 import plotly.express as px
+from models.leaderboard import LeaderboardModel
 
-from models import leaderboard as model
 TITLE = 'Leaderboard'
 
 _style={
@@ -29,9 +29,9 @@ _style_data = {
     'textAlign': 'left'
 }
 
-def create():
-    title = 'Test1'
-    df = model.get(title)
+def create(model: LeaderboardModel):
+    title = model.get_title()
+    df = model.get()
     columns = df.columns.copy()
     df['rank'] = df.index
     df['rank'] = df['rank'] + 1
@@ -51,5 +51,5 @@ def create():
                                     {'if': {'column_id': 'user'}, 'width': '70%'},
                                     {'if': {'column_id': 'score'}, 'width': '5rem'},
                                     {'if': {'column_id': 'Date'}, 'width': '5rem'}])
-    return html.Div([html.H3(f'current top user : {df.user.iloc[0]}'),
+    return html.Div([html.H3(f'Current Ranking Top : {df.user.iloc[0]}'),
                      graph, html.Div([table], style=_style)])

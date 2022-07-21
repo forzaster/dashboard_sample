@@ -1,24 +1,25 @@
 from dataclasses import dataclass
 
-from ...page import PageBase
-from ...utils import decorator
+from models.leaderboard import LeaderboardModel
+from views.page import PageBase
+from views.utils import decorator
 from .. import tab_leaderboard
 from . import tab_data
 from . import tab_description
 
 
-_TAB_INFO = [
-    {'title': tab_description.TITLE, 'create': tab_description.get_view},
-    {'title': tab_data.TITLE, 'create': tab_data.create},
-    {'title': tab_leaderboard.TITLE, 'create': tab_leaderboard.create},
-]
-
 class Test1(PageBase):
     def __init__(self):
         super().__init__()
+        self._title = 'Test1'
+        self._tab_info = [
+            {'title': tab_description.TITLE, 'create': tab_description.get_view, 'args': {}},
+            {'title': tab_data.TITLE, 'create': tab_data.create, 'args': {}},
+            {'title': tab_leaderboard.TITLE, 'create': tab_leaderboard.create, 'args': {'model': LeaderboardModel(self.title)}}
+        ]
 
     def title(self):
-        return 'Test1'
+        return self._title
 
     def deadline(self):
         return '2022/2/1'
@@ -30,11 +31,13 @@ class Test1(PageBase):
         return 'test1/test1_background.png'
 
     def get_tab_num(self):
-        return len(_TAB_INFO)
+        return len(self._tab_info)
 
     def get_tab_view(self, idx):
-        return decorator.rounded(_TAB_INFO[int(idx)]['create']())
+        idx = int(idx)
+        args = self._tab_info[idx]['args']
+        return decorator.rounded(self._tab_info[idx]['create'](**args))
 
     def get_tab_title(self, idx):
-        return _TAB_INFO[idx]['title']
+        return self._tab_info[idx]['title']
 
