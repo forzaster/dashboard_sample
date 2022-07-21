@@ -13,7 +13,7 @@ body {
 .sidebar_item {
     padding: 0.6rem !important;
     text-align: left !important;
-    font-size: 0.8rem !important;
+    font-size: 0.9rem !important;
     border: none !important;
     background-color: #f8f9fa !important;
     border-left: 3px solid #f8f9fa !important;
@@ -31,6 +31,7 @@ body {
 .sidebar_item_selected {
     color:rgb(0, 88, 117) !important;
     font-weight: bold !important;
+    font-size: 0.9rem !important;
     border-left: 3px solid #008cff !important;
     border-bottom: 1px solid #027ef9 !important;
     background-color: white !important;
