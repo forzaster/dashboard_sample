@@ -1,4 +1,4 @@
-from .local import leaderboard as local_model
+from .repository.local import leaderboard as local_model
 
 from config import Config
 
