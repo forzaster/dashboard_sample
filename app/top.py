@@ -3,11 +3,11 @@ from dash import html
 from config import Config
 from views.sidebar import Sidebar, SidebarItem
 from views.page_container import PageContainer
-from pages.template.main import Test1
+from pages.template.main import PageTemplate
 from pages.test2.main import Test2
 
 # contents page definition
-_pages = [Test1(),
+_pages = [PageTemplate(),
           Test2()]
 
 

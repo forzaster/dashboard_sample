@@ -8,10 +8,10 @@ from . import tab_description
 from .tab_description import TabDescription
 
 
-_TITLE = 'Test1'
+_TITLE = 'Template'
 
 
-class Test1(PageBase):
+class PageTemplate(PageBase):
     def __init__(self):
         super().__init__()
         self._title = _TITLE
