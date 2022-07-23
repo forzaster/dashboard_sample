@@ -1,11 +1,12 @@
 from dash import html
-from ...page import PageBase
+
+from views.page_base import PageBase
 
 _TITLE = 'Test2'
 _TAB_INFO = [
-    {'title': 'Description', 'create': None},
-    {'title': 'Data', 'create': None},
-    {'title': 'Leaderboard', 'create': None},
+    {'title': 'Description', 'get': None},
+    {'title': 'Data', 'get': None},
+    {'title': 'Leaderboard', 'get': None},
 ]
 
 
@@ -29,6 +30,8 @@ class Test2(PageBase):
         return 3
 
     def get_tab(self, idx):
+        if func := _TAB_INFO[idx]['get']:
+            return func.get_view()
         return html.Div(f'Under construction {idx}')
 
     def get_tab_title(self, idx):
