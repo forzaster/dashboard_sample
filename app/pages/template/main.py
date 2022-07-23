@@ -1,10 +1,11 @@
-from dataclasses import dataclass
-
 from models.leaderboard import LeaderboardModel
-from ...page import PageBase
-from .. import tab_leaderboard
+from views.page_base import PageBase
+from views import tab_leaderboard
+from views.tab_leaderboard import TabLeaderboard
 from . import tab_data
+from .tab_data import TabData
 from . import tab_description
+from .tab_description import TabDescription
 
 
 _TITLE = 'Test1'
@@ -15,9 +16,9 @@ class Test1(PageBase):
         super().__init__()
         self._title = _TITLE
         self._tab_info = [
-            {'title': tab_description.TITLE, 'create': tab_description.get_view, 'args': {}},
-            {'title': tab_data.TITLE, 'create': tab_data.create, 'args': {}},
-            {'title': tab_leaderboard.TITLE, 'create': tab_leaderboard.create, 'args': {'model': LeaderboardModel(self.title)}}
+            {'title': tab_description.TITLE, 'get': TabDescription()},
+            {'title': tab_data.TITLE, 'get': TabData()},
+            {'title': tab_leaderboard.TITLE, 'get': TabLeaderboard(self._title, LeaderboardModel(self._title))}
         ]
 
     def title(self):
@@ -36,9 +37,7 @@ class Test1(PageBase):
         return len(self._tab_info)
 
     def get_tab(self, idx):
-        idx = int(idx)
-        args = self._tab_info[idx]['args']
-        return self._tab_info[idx]['create'](**args)
+        return self._tab_info[idx]['get'].get_view()
 
     def get_tab_title(self, idx):
         return self._tab_info[idx]['title']

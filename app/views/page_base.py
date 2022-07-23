@@ -1,8 +1,9 @@
 from abc import abstractmethod
-from dash import html, dcc
+from dash import html, callback, Input, Output, dcc
 
 from models import asset_manager
 from .utils.decorator import rounded
+
 
 class PageBase:
     def __init__(self):
@@ -38,8 +39,7 @@ class PageBase:
 
     @rounded
     def get_tab_view(self, n):
-        idx = int(n)
-        return self.get_tab(idx)
+        return self.get_tab(n)
 
     def tab_id(self):
         return f'tabs_{self.title()}'
@@ -76,19 +76,18 @@ class PageBase:
                          self._create_tabs(),
                          self._create_tabs_container()])
 
+    def register_callback(self):
+        # Tab switching callback
+        @callback(Output(self.tab_container_id(), 'children'),
+                  Input(self.tab_id(), 'value'))
+        def render_tab(tab):
+            if tab_content := self.get_tab_view(int(tab)):
+                return tab_content
+            return html.Div('')
+
     def get_view(self):
         if self.content is None:
             self.content = self._create()
         return self.content
 
 
-def get_page_root_view(margin_left, page):
-    page_margin = 2
-    style = {
-        "margin-left": f"{margin_left+page_margin}rem",
-        "padding-left": f"{page_margin}rem",
-        "margin-right": f"{page_margin}rem",
-        "padding-top": f"{page_margin}rem"
-    }
-    page_view = page.get_view()
-    return html.Div([page_view], id='contents_container', style=style)
